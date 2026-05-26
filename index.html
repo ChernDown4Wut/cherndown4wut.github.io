@@ -1,11 +1,322 @@
-<h1>VoltTimer</h1>
-<p>Official website for the VoltTimer app.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CherneyWerk — Independent App Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --blue-deep: #0a1628;
+      --blue-mid: #0d2b5e;
+      --blue-bright: #1a56db;
+      --blue-light: #3b82f6;
+      --blue-pale: #bfdbfe;
+      --accent: #60a5fa;
+      --accent-soft: #93c5fd;
+      --text: #f0f6ff;
+      --text-muted: #94a3b8;
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(96,165,250,0.15);
+    }
 
-<p>
-  <a href="/privacy-policy/">Privacy Policy</a>
-</p>
+    html { scroll-behavior: smooth; }
 
-<p>
-  <a href="/app-ads.txt">app-ads.txt</a>
-</p>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--blue-deep);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background gradient mesh */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(26,86,219,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(59,130,246,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 60% 30%, rgba(96,165,250,0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Subtle grid overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(96,165,250,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(96,165,250,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* HEADER */
+    header {
+      padding: 5rem 0 4rem;
+      text-align: center;
+    }
+
+    .wordmark {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent-soft) 50%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      animation: fadeUp 0.7s 0.15s ease both;
+    }
+
+    .header-rule {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue-bright), var(--accent));
+      margin: 2rem auto 0;
+      border-radius: 2px;
+      animation: fadeUp 0.7s 0.25s ease both;
+    }
+
+    /* APPS SECTION */
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 5rem;
+    }
+
+    .app-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+      backdrop-filter: blur(8px);
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .app-card:nth-child(1) { animation-delay: 0.35s; }
+    .app-card:nth-child(2) { animation-delay: 0.45s; }
+    .app-card:nth-child(3) { animation-delay: 0.55s; }
+    .app-card:nth-child(4) { animation-delay: 0.65s; }
+
+    .app-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(96,165,250,0.4);
+      transform: translateY(-3px);
+    }
+
+    .app-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .app-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .app-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    .app-arrow {
+      margin-top: auto;
+      padding-top: 0.8rem;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .app-arrow::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+
+    .app-card:hover .app-arrow::after {
+      transform: translateX(4px);
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(96,165,250,0.1);
+      margin: 0 0 3rem;
+    }
+
+    /* VOLTTIMER LEGACY SECTION */
+    .legacy-section {
+      animation: fadeUp 0.6s 0.7s ease both;
+      margin-bottom: 5rem;
+    }
+
+    .legacy-section h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .legacy-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .legacy-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(96,165,250,0.3);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .legacy-links a:hover {
+      color: #fff;
+      border-color: #fff;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(96,165,250,0.1);
+      padding: 2.5rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      animation: fadeUp 0.6s 0.8s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 500px) {
+      header { padding: 3.5rem 0 3rem; }
+      .apps-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="wordmark">CherneyWerk</div>
+      <p class="tagline">Independent app developer</p>
+      <div class="header-rule"></div>
+    </header>
+
+    <p class="section-label">Apps</p>
+
+    <div class="apps-grid">
+
+      <a class="app-card" href="/galacticdrop/">
+        <div class="app-icon" style="background: linear-gradient(135deg, #1e3a8a, #1d4ed8);">🪐</div>
+        <div class="app-name">GalacticDrop</div>
+        <p class="app-desc">A physics-based planet merging game. Drop, merge, and trigger Solar Implosions to keep the galaxy going.</p>
+        <span class="app-arrow">View app</span>
+      </a>
+
+      <a class="app-card" href="/Habstract/">
+        <div class="app-icon" style="background: linear-gradient(135deg, #134e4a, #0f766e);">✦</div>
+        <div class="app-name">Habstract</div>
+        <p class="app-desc">Build better habits with a clean, focused tracking experience.</p>
+        <span class="app-arrow">View app</span>
+      </a>
+
+      <a class="app-card" href="/scrubroll/">
+        <div class="app-icon" style="background: linear-gradient(135deg, #4c1d95, #7c3aed);">⏩</div>
+        <div class="app-name">ScrubRoll</div>
+        <p class="app-desc">Fast, intuitive media scrubbing for your fingertips.</p>
+        <span class="app-arrow">View app</span>
+      </a>
+
+      <a class="app-card" href="/volttimer/">
+        <div class="app-icon" style="background: linear-gradient(135deg, #78350f, #d97706);">⚡</div>
+        <div class="app-name">VoltTimer</div>
+        <p class="app-desc">A precision timer utility built for electricians and tradespeople.</p>
+        <span class="app-arrow">View app</span>
+      </a>
+
+    </div>
+
+    <hr class="divider" />
+
+    <div class="legacy-section">
+      <h2>VoltTimer</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem;">Official website for the VoltTimer app.</p>
+      <div class="legacy-links">
+        <a href="/privacy-policy/">Privacy Policy</a>
+        <a href="/app-ads.txt">app-ads.txt</a>
+      </div>
+    </div>
+
+    <footer>
+      &copy; <span id="yr"></span> CherneyWerk &mdash; All rights reserved
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
